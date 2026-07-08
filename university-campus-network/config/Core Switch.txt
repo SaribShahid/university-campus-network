@@ -1,0 +1,176 @@
+Switch#show running-config
+Building configuration...
+
+Current configuration : 2411 bytes
+!
+version 12.2(37)SE1
+no service timestamps log datetime msec
+no service timestamps debug datetime msec
+no service password-encryption
+!
+hostname Switch
+!
+!
+no profinet
+!
+!
+!
+!
+!
+ip routing
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+!
+spanning-tree mode pvst
+!
+!
+!
+!
+!
+!
+interface FastEthernet0/1
+ description TRUNK-TO-CORE-SW
+ no switchport
+ ip address 10.1.1.2 255.255.255.252
+ duplex auto
+ speed auto
+!
+interface FastEthernet0/2
+ description TO-R2-ADMIN
+ no switchport
+ ip address 172.16.2.1 255.255.255.252
+ duplex auto
+ speed auto
+!
+interface FastEthernet0/3
+ description TO-R3-ACADEMIC
+ no switchport
+ ip address 172.17.3.1 255.255.255.252
+ duplex auto
+ speed auto
+!
+interface FastEthernet0/4
+ description TO-R4-LIBRARY
+ no switchport
+ ip address 172.18.4.1 255.255.255.252
+ duplex auto
+ speed auto
+!
+interface FastEthernet0/5
+ description TO-R5-HOSTEL
+ no switchport
+ ip address 172.19.5.1 255.255.255.252
+ duplex auto
+ speed auto
+!
+interface FastEthernet0/6
+!
+interface FastEthernet0/7
+!
+interface FastEthernet0/8
+!
+interface FastEthernet0/9
+!
+interface FastEthernet0/10
+!
+interface FastEthernet0/11
+!
+interface FastEthernet0/12
+!
+interface FastEthernet0/13
+!
+interface FastEthernet0/14
+!
+interface FastEthernet0/15
+!
+interface FastEthernet0/16
+!
+interface FastEthernet0/17
+!
+interface FastEthernet0/18
+!
+interface FastEthernet0/19
+!
+interface FastEthernet0/20
+!
+interface FastEthernet0/21
+!
+interface FastEthernet0/22
+!
+interface FastEthernet0/23
+!
+interface FastEthernet0/24
+!
+interface GigabitEthernet0/1
+!
+interface GigabitEthernet0/2
+!
+interface Vlan1
+ no ip address
+ shutdown
+!
+interface Vlan70
+ mac-address 0040.0b4a.5801
+ ip address 192.168.70.1 255.255.255.0
+!
+router eigrp 100
+ passive-interface default
+ no passive-interface FastEthernet0/4
+ no passive-interface FastEthernet0/5
+ no passive-interface Vlan70
+ network 172.18.4.0 0.0.0.3
+ network 172.18.5.0 0.0.0.3
+ network 172.19.5.0 0.0.0.3
+ no auto-summary
+!
+router ospf 1
+ router-id 33.33.33.33
+ log-adjacency-changes
+ passive-interface default
+ no passive-interface FastEthernet0/3
+ no passive-interface Vlan70
+ network 172.17.3.0 0.0.0.3 area 0
+!
+router rip
+ version 2
+ passive-interface default
+ no passive-interface FastEthernet0/2
+ no passive-interface Vlan70
+ network 172.16.0.0
+ no auto-summary
+!
+ip classless
+ip route 0.0.0.0 0.0.0.0 10.1.1.1 
+!
+ip flow-export version 9
+!
+!
+!
+!
+!
+!
+!
+!
+line con 0
+!
+line aux 0
+!
+line vty 0 4
+ login
+!
+!
+!
+!
+end
